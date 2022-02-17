@@ -18,4 +18,8 @@ export const deleteTodoSchema = yup.object().shape({
   id: yup.string().required({ message: 'Id is required.' }),
 });
 
+export const getTodosSchema = yup.object().shape({
+  id: yup.string().required({ message: 'Id is required.' }),
+});
+
 export const bar = 'bar';

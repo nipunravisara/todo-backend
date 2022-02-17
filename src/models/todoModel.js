@@ -9,6 +9,7 @@ export const statusType = {
 const todoSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
+    userId: { type: String, required: true },
     status: {
       type: String,
       enum: Object.values(statusType),

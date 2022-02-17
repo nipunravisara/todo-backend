@@ -1,9 +1,30 @@
 import Todo from '../models/todoModel';
 
-// create todo
-export async function createTodo(todoData) {
+// get all todo
+export async function getTodos(userId) {
   try {
-    const todo = await Todo.create(todoData);
+    const todos = await Todo.find({ userId });
+
+    return {
+      success: false,
+      status: 404,
+      message: 'Sucess',
+      data: todos,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      status: 404,
+      message: 'Failed to fetch todos.',
+      data: error.message,
+    };
+  }
+}
+
+// create todo
+export async function createTodo(todoData, userId) {
+  try {
+    const todo = await Todo.create({ userId, ...todoData });
 
     return {
       success: false,
