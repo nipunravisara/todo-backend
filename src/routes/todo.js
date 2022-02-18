@@ -10,7 +10,6 @@ import validateRequest from '../middleware/validateRequest';
 import {
   createTodoSchema,
   deleteTodoSchema,
-  getTodosSchema,
   updateTodoSchema,
   updateTodoStatusSchema,
 } from '../schemas/todoSchema';
@@ -19,15 +18,13 @@ const router = express.Router();
 
 // get all todos
 router.get('/', async (req, res) => {
-  const userId = req.payload.id;
+  const userId = req?.payload?.id;
 
   const response = await getTodos(userId);
 
-  if (response.success === true) {
-    return res.status(response.status).json(response);
-  }
-
-  return res.status(response.status).json(response);
+  return response.success === true
+    ? res.status(response.status).json(response)
+    : res.status(response.status).json(response);
 });
 
 // create todo

@@ -93,7 +93,7 @@ export async function refreshAccessToken(refreshToken) {
       success: true,
       status: 200,
       message: 'Token refreshed.',
-      data: tokens,
+      data: { ...user, ...tokens },
     };
   } catch (error) {
     return {

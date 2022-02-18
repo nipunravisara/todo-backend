@@ -25,7 +25,6 @@ router.post(
     if (response.success === true) {
       return res.status(response.status).json(response);
     }
-
     return res.status(response.status).json(response);
   }
 );
@@ -38,10 +37,19 @@ router.post(
     const { email, password } = req.body;
     const response = await loginUser({ email, password });
 
-    if (response.success === true) {
-      return res.status(response.status).json(response);
-    }
+    const cookieOptions = {
+      maxAge: 900000,
+      httpOnly: true,
+    };
 
+    if (response.success === true) {
+      const { refreshToken } = response.data;
+
+      return res
+        .cookie('refresh_token', refreshToken, cookieOptions)
+        .status(response.status)
+        .json(response);
+    }
     return res.status(response.status).json(response);
   }
 );
@@ -49,9 +57,9 @@ router.post(
 // refresh token
 router.post(
   '/refresh-token',
-  validateRequest({ schema: refreshAccessTokenSchema }),
+  validateRequest({ schema: refreshAccessTokenSchema, type: 'cookies' }),
   async (req, res) => {
-    const { refreshToken } = req.body;
+    const { refresh_token: refreshToken } = req.cookies;
     const response = await refreshAccessToken(refreshToken);
 
     if (response.success === true) {

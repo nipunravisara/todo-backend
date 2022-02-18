@@ -2,7 +2,6 @@ import jwt from 'jsonwebtoken';
 
 function verifyAccessToken(req, res, next) {
   const authHeader = req.headers.authorization;
-
   if (!authHeader) {
     return res.status(500).json({
       success: false,

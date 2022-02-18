@@ -6,8 +6,8 @@ export async function getTodos(userId) {
     const todos = await Todo.find({ userId });
 
     return {
-      success: false,
-      status: 404,
+      success: true,
+      status: 200,
       message: 'Sucess',
       data: todos,
     };

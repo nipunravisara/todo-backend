@@ -24,7 +24,7 @@ export const loginSchema = yup.object().shape({
 });
 
 export const refreshAccessTokenSchema = yup.object().shape({
-  refreshToken: yup
+  refresh_token: yup
     .string()
     .required({ message: 'Refresh token is required.' }),
 });
